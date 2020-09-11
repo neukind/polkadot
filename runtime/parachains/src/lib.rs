@@ -35,6 +35,7 @@ pub mod initializer;
 pub mod paras;
 pub mod scheduler;
 pub mod validity;
+pub mod dispute;
 
 pub mod runtime_api_impl;
 
