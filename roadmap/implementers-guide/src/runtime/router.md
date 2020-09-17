@@ -260,9 +260,7 @@ any of dispatchables return an error.
         1. Decode `D` into a dispatchable. Otherwise, if succeeded:
             1. If `weight_of(D) > config.dispatchable_upward_message_critical_weight` then skip the dispatchable. Otherwise:
                 1. Execute `D` and add the actual amount of weight consumed to `T`.
-            1. If `weight_of(D) + T > config.preferred_dispatchable_upward_messages_step_weight`, set `NextDispatchRoundStartWith` to `P` and finish processing.
-            > NOTE that in practice we would need to approach the weight calculation more thoroughly, i.e. incorporate all operations
-            > that could take place on the course of handling these dispatchables.
+        1. If `T >= config.preferred_dispatchable_upward_messages_step_weight`, set `NextDispatchRoundStartWith` to `P` and finish processing.
         1. If `RelayDispatchQueues` for `P` became empty, remove `P` from `NeedsDispatch`.
         1. If `NeedsDispatch` became empty then finish processing and set `NextDispatchRoundStartWith` to `None`.
 
