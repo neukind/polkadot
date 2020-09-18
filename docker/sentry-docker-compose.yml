@@ -24,7 +24,7 @@ services:
       - "9944:9944"
 #    volumes:
 #      - ../../target/release/substrate:/usr/local/bin/substrate
-    image: parity/polkadot
+    image: neukind/polkadot
     networks:
       - network-a
     environment:
@@ -60,7 +60,7 @@ services:
       - "all"
 
   sentry:
-    image: parity/polkadot
+    image: neukind/polkadot
     ports:
       - "9946:9944"
 #    volumes:

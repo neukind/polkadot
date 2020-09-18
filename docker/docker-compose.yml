@@ -6,7 +6,7 @@ services:
     ports:
       - "127.0.0.1:30333:30333/tcp"
       - "127.0.0.1:9933:9933/tcp"
-    image: chevdor/polkadot:latest
+    image: neukind/polkadot:latest
     volumes:
       - "polkadot-data:/data"
     command: polkadot

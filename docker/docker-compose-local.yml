@@ -22,7 +22,7 @@ services:
       - "30344:30344"
       - "9935:9935"
       - "9945:9945"
-    image: chevdor/polkadot:latest
+    image: neukind/polkadot:latest
     volumes:
       - "polkadot-data-bob:/data"
     links:
