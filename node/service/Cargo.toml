@@ -20,6 +20,8 @@ kusama-runtime = { path = "../../runtime/kusama" }
 westend-runtime = { path = "../../runtime/westend" }
 polkadot-rpc = { path = "../../rpc" }
 polkadot-node-core-proposer = { path = "../core/proposer" }
+frame-system = { git = "https://github.com/paritytech/substrate", branch = "seun-babe-manual-seal" }
+
 sp-io = { git = "https://github.com/paritytech/substrate", branch = "seun-babe-manual-seal" }
 sp-api = { git = "https://github.com/paritytech/substrate", branch = "seun-babe-manual-seal" }
 sp-runtime = { git = "https://github.com/paritytech/substrate", branch = "seun-babe-manual-seal" }

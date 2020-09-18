@@ -57,7 +57,7 @@ native_executor_instance!(
 	pub PolkadotExecutor,
 	polkadot_runtime::api::dispatch,
 	polkadot_runtime::native_version,
-	frame_benchmarking::benchmarking::HostFunctions,
+	(frame_benchmarking::benchmarking::HostFunctions, sp_io::useless_crypto::HostFunctions),
 );
 
 native_executor_instance!(

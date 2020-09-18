@@ -770,7 +770,7 @@ pub fn westend_testnet_genesis(
 	}
 }
 
-fn polkadot_development_config_genesis(wasm_binary: &[u8]) -> polkadot::GenesisConfig {
+pub fn polkadot_development_config_genesis(wasm_binary: &[u8]) -> polkadot::GenesisConfig {
 	polkadot_testnet_genesis(
 		wasm_binary,
 		vec![
@@ -939,4 +939,33 @@ pub fn westend_local_testnet_config() -> Result<WestendChainSpec, String> {
 		None,
 		Default::default(),
 	))
+}
+
+#[cfg(test)]
+mod tests {
+	use sp_core::bytes::from_hex;
+	use codec::Decode;
+	use polkadot_runtime::{SignedPayload, UncheckedExtrinsic};
+	use codec::Encode;
+	use polkadot_primitives::v0::Verify;
+	use sp_runtime::BuildStorage;
+	use super::*;
+
+	fn new_test_ext() -> sp_io::TestExternalities {
+		let polkadot_spec = polkadot_config().unwrap();
+		let storage = polkadot_spec.build_storage().unwrap();
+		storage.into()
+	}
+
+	#[test]
+	fn sd() {
+		let hex = from_hex("0x4102848eaf04151687736326c9fea17e25fc5287613693c912909cb226aa4794f26a480134519fc26eda4ffb164a7a641b7aa0e1848645a5b707e29c8ff16e2ccff417302049222e6c76958c485dc6a33edc5a8bac8200d9c7acf6df0fb313acbf43dd810a0000000500d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d0f004080ba809e1f").unwrap();
+		let ext = UncheckedExtrinsic::decode(&mut &hex[..]).unwrap();
+		let (function, (signed, signature, extra)) = (ext.function, ext.signature.unwrap());
+		new_test_ext().execute_with(|| {
+			let raw_payload = SignedPayload::new(function, extra).unwrap();
+			let val = raw_payload.using_encoded(|payload| signature.verify(payload, &signed));
+			println!("verify: {}\nsigned: {}\n", val, signed)
+		});
+	}
 }
